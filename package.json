@@ -61,11 +61,12 @@
   "dependencies": {
     "@contentful/axios": "^0.18.0",
     "contentful-resolve-response": "^1.1.4",
-    "contentful-sdk-core": "^6.0.0-beta0",
+    "contentful-sdk-core": "github:contentful/contentful-sdk-core#feat/ts",
     "json-stringify-safe": "^5.0.1",
     "lodash": "^4.17.5"
   },
   "devDependencies": {
+    "@types/node": "^10.3.0",
     "awesome-typescript-loader": "^5.0.0",
     "babel-cli": "^6.7.5",
     "babel-core": "^6.22.1",
