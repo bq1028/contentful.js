@@ -3,6 +3,7 @@ language: node_js
 node_js:
   - "8"
   - "6"
+script: echo "This project is using build stages for testing"
 jobs:
   include:
     - stage: lint
@@ -26,10 +27,12 @@ jobs:
       env:
         - CONTENTFUL_E2E_MODE=legacy
     - stage: release
-      - curl -Lo travis_after_all.py https://raw.githubusercontent.com/contentful/travis_after_all/master/travis_after_all.py
-      - python travis_after_all.py
-      - codecov
-      - ./node_modules/.bin/travis-deploy-once "npm run semantic-release"
+      name: "Release"
+      script:
+        - curl -Lo travis_after_all.py https://raw.githubusercontent.com/contentful/travis_after_all/master/travis_after_all.py
+        - python travis_after_all.py
+        - codecov
+        - ./node_modules/.bin/travis-deploy-once "npm run semantic-release"
 after_install:
   - npm run build
 addons:
