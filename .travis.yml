@@ -42,6 +42,7 @@ jobs:
         sauce_connect: true
     - stage: "Release"
       after_install: npm run build
+      if: branch = master
       node_js:
         - "8"
       script:
