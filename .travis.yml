@@ -1,13 +1,26 @@
 dist: trusty
-cache:
-  directories:
-    - "node_modules"
-    - "~/.npm"
 language: node_js
 node_js:
   - "8"
   - "6"
-script: npm run test:ci
+jobs:
+  include:
+    - stage: lint
+      script: npm run lint
+    - stage: unit
+      script: npm run test:cover
+    - stage: integration
+      script: npm run test:integration
+    - stage: sauce-labs
+      script: npm run browser-remote
+    - stage: e2e
+      script: npm run test:e2e
+    - stage: e2e-legacy
+      script: npm run test:e2e
+      env:
+        - CONTENTFUL_E2E_MODE=legacy
+after_install:
+  - npm run build
 after_success:
   - curl -Lo travis_after_all.py https://raw.githubusercontent.com/contentful/travis_after_all/master/travis_after_all.py
   - python travis_after_all.py
