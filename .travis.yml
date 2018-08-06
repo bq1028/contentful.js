@@ -3,42 +3,35 @@ language: node_js
 script: echo "This project is using build stages for testing"
 jobs:
   include:
-    - stage: lint
-      name: "Linting"
+    - stage: "Linting"
       script: npm run lint
       node_js:
         - "8"
-    - stage: unit
-      name: "Unit Tests"
+    - stage: "Unit Tests"
       script: npm run test:cover
       node_js:
         - "8"
         - "6"
-    - stage: integration
-      name: "Integration Tests"
+    - stage: "Integration Tests"
       script: npm run test:integration
       node_js:
         - "8"
         - "6"
-    - stage: sauce-labs
-      name: "Sauce Labs Browser Tests"
+    - stage: "Sauce Labs Browser Tests"
       script: npm run browser-remote
       node_js:
         - "8"
-    - stage: e2e
-      name: "E2E Tests"
+    - stage: "E2E Tests"
       script: npm run test:e2e
       node_js:
         - "8"
-    - stage: e2e-legacy
-      name: "Legacy E2E Tests"
+    - stage: "Legacy E2E Tests"
       script: npm run test:e2e
       env:
         - CONTENTFUL_E2E_MODE=legacy
       node_js:
         - "8"
-    - stage: release
-      name: "Release"
+    - stage: "Release"
       node_js:
         - "8"
       script:
