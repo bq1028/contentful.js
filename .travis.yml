@@ -13,6 +13,7 @@ jobs:
         - "8"
         - "6"
     - stage: "Integration Tests"
+      after_install: npm run build
       script: npm run test:integration
       node_js:
         - "8"
@@ -24,12 +25,14 @@ jobs:
       addons:
         sauce_connect: true
     - stage: "Sauce Labs E2E Tests"
+      after_install: npm run build
       script: npm run test:e2e
       node_js:
         - "8"
       addons:
         sauce_connect: true
     - stage: "Sauce Labs E2E Tests (Legacy Browser)"
+      after_install: npm run build
       script: npm run test:e2e
       env:
         - CONTENTFUL_E2E_MODE=legacy
@@ -38,6 +41,7 @@ jobs:
       addons:
         sauce_connect: true
     - stage: "Release"
+      after_install: npm run build
       node_js:
         - "8"
       script:
@@ -45,8 +49,6 @@ jobs:
         - python travis_after_all.py
         - codecov
         - ./node_modules/.bin/travis-deploy-once "npm run semantic-release"
-after_install:
-  - npm run build
 branches:
   except:
     - "/^v\\d+\\.\\d+\\.\\d+$/"
