@@ -103,4 +103,7 @@ if (env === 'test') {
   })
 }
 
+console.log('Using the follow babel config:')
+console.log(JSON.stringify(babelConfig, null, 2))
+
 module.exports = babelConfig
