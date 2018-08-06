@@ -6,26 +6,32 @@ node_js:
 jobs:
   include:
     - stage: lint
+      name: "Linting"
       script: npm run lint
     - stage: unit
+      name: "Unit Tests"
       script: npm run test:cover
     - stage: integration
+      name: "Integration Tests"
       script: npm run test:integration
     - stage: sauce-labs
+      name: "Sauce Labs Browser Tests"
       script: npm run browser-remote
     - stage: e2e
+      name: "E2E Tests"
       script: npm run test:e2e
     - stage: e2e-legacy
+      name: "Legacy E2E Tests"
       script: npm run test:e2e
       env:
         - CONTENTFUL_E2E_MODE=legacy
+    - stage: release
+      - curl -Lo travis_after_all.py https://raw.githubusercontent.com/contentful/travis_after_all/master/travis_after_all.py
+      - python travis_after_all.py
+      - codecov
+      - ./node_modules/.bin/travis-deploy-once "npm run semantic-release"
 after_install:
   - npm run build
-after_success:
-  - curl -Lo travis_after_all.py https://raw.githubusercontent.com/contentful/travis_after_all/master/travis_after_all.py
-  - python travis_after_all.py
-  - codecov
-  - ./node_modules/.bin/travis-deploy-once "npm run semantic-release"
 addons:
   sauce_connect: true
 branches:
