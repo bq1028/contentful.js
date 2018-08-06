@@ -19,7 +19,7 @@ jobs:
         - "8"
         - "6"
     - stage: "Sauce Labs Unit Tests"
-      script: npm run browser-remote
+      script: npm run test:browser-remote
       node_js:
         - "8"
       addons:
